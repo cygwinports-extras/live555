@@ -1,0 +1,29 @@
+DESCRIPTION="C++ libraries for multimedia streaming"
+HOMEPAGE="http://www.live555.com/"
+SRC_URI="http://www.live555.com/liveMedia/public/live.${PV}.tar.gz"
+SRC_DIR="live"
+
+src_compile() {
+	lndirs
+	cd ${B}
+	./genMakefiles cygwin
+	cygmake -j1 CFLAGS="${CFLAGS}" CXXFLAGS="${CXXFLAGS}"
+}
+
+src_install() {
+	cd ${B}
+
+	for lib in UsageEnvironment liveMedia BasicUsageEnvironment groupsock
+	do
+		dolib ${lib}/lib${lib}.a
+
+		insinto /usr/include/${lib}
+		doins ${lib}/include/*h
+	done
+
+	# Should we really install these?
+	find testProgs -type f -perm +111 -print0 | xargs -0 dobin
+
+	#install included live555MediaServer aplication
+	dobin mediaServer/live555MediaServer
+}

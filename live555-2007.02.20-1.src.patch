@@ -1,0 +1,21 @@
+diff -urN -x CYGWIN-PATCHES -x 'aclocal.m4*' -x autom4te.cache -x config.cache -x config.log -x config.status -x config.h -x config.h.in -x ABOUT-NLS -x Makefile.in.in -x Makevars.template -x '*.class' -x '*.pyc' -x '*.mo' -x '*.gmo' -x '*.orig' -x '*.rej' -x '*.temp' -x '*~' -x '*.stackdump' -x COPYING -x INSTALL -x compile -x config-ml.in -x config.guess -x config.sub -x depcomp -x elisp-comp -x install-sh -x ltmain.sh -x mdate-sh -x missing -x mkinstalldirs -x py-compile -x symlink-tree -x texinfo.tex -x ylwrap -x omf.make -x xmldocs.make -x gnome-doc-utils.make -x gnome-doc-utils.m4 -x intltool.m4 -x intltool-extract -x intltool-extract.in -x intltool-merge -x intltool-merge.in -x intltool-update -x intltool-update.in origsrc/live/config.cygwin src/live/config.cygwin
+--- origsrc/live/config.cygwin	2007-02-20 05:33:45.000000000 -0600
++++ src/live/config.cygwin	2007-04-08 01:27:53.875000000 -0500
+@@ -1,12 +1,12 @@
+-COMPILE_OPTS =		$(INCLUDES) -I. -O -DSOCKLEN_T=socklen_t
++COMPILE_OPTS =		$(INCLUDES) -I. -O -DSOCKLEN_T=socklen_t -D_LARGEFILE_SOURCE=1 -D_FILE_OFFSET_BITS=64
+ C =			c
+ C_COMPILER =		gcc
+-C_FLAGS =		$(COMPILE_OPTS) -DUSE_OUR_BZERO=1 -D__CYGWIN__
++C_FLAGS =		$(COMPILE_OPTS) -DUSE_OUR_BZERO=1 -D__CYGWIN__ $(CFLAGS)
+ CPP =			cpp
+-CPLUSPLUS_COMPILER =	c++
+-CPLUSPLUS_FLAGS =	$(COMPILE_OPTS) -Wall -DBSD=1
++CPLUSPLUS_COMPILER =	g++
++CPLUSPLUS_FLAGS =	$(COMPILE_OPTS) -Wall -DBSD=1 $(CXXFLAGS)
+ OBJ =			o
+-LINK =			c++ -o 
++LINK =			g++ -o 
+ LINK_OPTS =		-L.
+ CONSOLE_LINK_OPTS =	$(LINK_OPTS)
+ LIBRARY_LINK =		ld -o 
